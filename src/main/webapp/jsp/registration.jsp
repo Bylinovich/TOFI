@@ -80,7 +80,7 @@
                     <div class="form-group col-md-6">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" name="email" id="email"
-                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required placeholder="Email"  maxlength="50"
+                               pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" required placeholder="Email"  maxlength="50"
                                title="Enter your email, please. Format: example@example.com."
                                oninvalid="setCustomValidity('Wrong email form. Try one more time, please.')"
                                onchange="try{setCustomValidity('')}catch(e){}">
@@ -89,8 +89,8 @@
                     <div class="form-group col-md-6">
                         <label for="password">Password</label>
                         <input type="password" class="form-control" name="password" id="password" required
-                              maxlength="20" placeholder="Password" pattern="^[a-zA-Z][a-zA-Z0-9]{2,20}$"
-                               title="Enter your password. First character only letter. Other - letters or digits. From 3 to 20 characters."
+                              maxlength="20" placeholder="Password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                               title="Minimum eight characters, at least one letter and one number"
                                oninvalid="setCustomValidity('Wrong password.' +
                                 ' First character only letter. Other - letters or digits. From 3 to 20 characters.')"
                                onchange="try{setCustomValidity('')}catch(e){}">
