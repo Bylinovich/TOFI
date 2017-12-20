@@ -65,7 +65,7 @@ public class SignUpServlet extends BaseHttpServlet {
     }
 
     private void sendError(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.getSession().setAttribute("SignUpError", "Error, wrong data");
+        request.getSession().setAttribute("SignUpError", "User with this login exists");
         response.sendRedirect(request.getContextPath()+"/jsp/registration.jsp");
     }
 

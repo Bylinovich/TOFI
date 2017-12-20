@@ -30,6 +30,20 @@ public class UserController {
     }
 
 
+    public User getUserByEmail(String email) {
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(User.class);
+        criteria.add(Restrictions.eq("email", email));
+        List<User> list = criteria.list();
+        session.getTransaction().commit();
+        session.close();
+        if (list.size() == 0)
+            return null;
+        return list.get(0);
+    }
+
+
     public User addUser(User user){
         User userFromDB = getUser(user.getUsername());
         if (userFromDB != null)

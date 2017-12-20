@@ -112,6 +112,8 @@
                                        required
                                        placeholder="Password">
                             </div>
+                            <a href="${pageContext.request.contextPath}/jsp/passwordRecovery.jsp" style="margin-left: 20px"
+                            >Forgot your password?</a>
                         </div>
                     </div>
                 </div>

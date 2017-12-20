@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Alexandr
-  Date: 11.11.2016
-  Time: 23:55
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -92,7 +85,7 @@
                               maxlength="20" placeholder="Password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
                                title="Minimum eight characters, at least one letter and one number"
                                oninvalid="setCustomValidity('Wrong password.' +
-                                ' First character only letter. Other - letters or digits. From 3 to 20 characters.')"
+                                'Minimum eight characters, at least one letter and one number.')"
                                onchange="try{setCustomValidity('')}catch(e){}">
                     </div>
 
