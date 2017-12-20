@@ -45,7 +45,7 @@ public class Rate extends AbstractEntity {
             cost *= 1.2;
         }
         int t = (int) (cost * 100);
-        cost = t/100;
+        cost = (float)t/100;
         return cost;
     }
 
