@@ -41,6 +41,12 @@ public class ShowParcelsServlet extends BaseHttpServlet {
             return;
         }
 
+        String orderIdString = request.getParameter("OrderId");
+        Long orderId = null;
+        if (orderIdString != null) {
+            orderId = Long.valueOf(orderIdString);
+        }
+
         ParcelController parcelController = new ParcelController();
         Object obj = request.getParameter("page");
         Integer pageNumber = 1;
@@ -56,9 +62,10 @@ public class ShowParcelsServlet extends BaseHttpServlet {
             pageNumber = reqPage;
         }
 
-        ArrayList<Parcel> parcels = (ArrayList<Parcel>) parcelController.getPageOfUsers(pageNumber, 5);
+        ArrayList<Parcel> parcels = (ArrayList<Parcel>) parcelController.getPageOfParcels(pageNumber, 5, orderId);
         ArrayList<String> states = new ArrayList<>();
-        states.add("Not delivered");
+        states.add("Waiting for the parcel");
+        states.add("Parcel received");
         states.add("On the way");
         states.add("Delivered");
         states.add("Canceled");

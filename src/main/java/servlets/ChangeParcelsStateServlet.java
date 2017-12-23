@@ -47,10 +47,14 @@ public class ChangeParcelsStateServlet extends BaseHttpServlet {
 
         ParcelController parcelController = new ParcelController();
 
+        String generalState = request.getParameter("state_selected");
         for (Parcel parcel:parcels
              ) {
             String state = request.getParameter("state".concat(String.valueOf(parcel.getId())));
             parcel.setState(state);
+            if (request.getParameter("select_".concat(String.valueOf(parcel.getId()))) != null) {
+                parcel.setState(generalState);
+            }
             parcelController.updateParcel(parcel);
         }
         response.sendRedirect(request.getContextPath()+"/ShowParcels");

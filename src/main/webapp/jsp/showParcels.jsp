@@ -114,12 +114,27 @@
 <div class="container-fluid" style="position: relative; top: 8rem;">
     <div class="row">
         <div class="col-md-12">
+            <form action="${pageContext.request.contextPath}/ShowParcels" method="post">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input type="number" pattern="\d+" class="form-control" placeholder="Order Id" name="OrderId">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-secondary">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
             <form action="${pageContext.request.contextPath}/ChangeParcelsState" method="post">
-                <legend>List of parcels:</legend>
+                <%--<legend>List of parcels:</legend>--%>
                 <table class="table table-bordered">
                     <thead style="background: rgba(228, 226, 224, 0.29);">
                     <tr>
-                        <th style="max-width: 20px;">
+                        <th>
+
+                        </th>
+                        <th>
                             ID:
                         </th>
                         <th>
@@ -147,9 +162,17 @@
 
                     <c:forEach items="${parcels}" var="parcel">
                         <tr>
+                            <td>
+                                <input type="checkbox" class="select-parcel" name="select_${parcel.getId()}">
+                            </td>
                             <td><c:out value="${parcel.getId()}"/></td>
                             <td>${parcel.getDescription()}</td>
-                            <td>${parcel.getWeight()}</td>
+                            <c:if test="${'Waiting for the parcel'.equals(parcel.getState())}">
+                                <td><input min="0.1" max="100" step="0.1" type="number" value="${parcel.getWeight()}"></td>
+                            </c:if>
+                            <c:if test="${!'Waiting for the parcel'.equals(parcel.getState())}">
+                                <td>${parcel.getWeight()}</td>
+                            </c:if>
                             <td>${parcel.getCost()}</td>
                             <td>${parcel.getFromCountry()}</td>
                             <td>${parcel.getToCountry()}</td>
@@ -161,15 +184,32 @@
                         </tr>
                     </c:forEach>
 
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="select_all" id="select-all" class="select-parcel">
+                            </td>
+                            <td colspan="6"></td>
+                            <td><select
+                                    name="state_selected"
+                                    id="select-status-for-all-parcels"
+                                    class="form-control hidden"
+                                    required
+                            >
+                                <c:forEach items="${states}" var="state">
+                                    <option ${state.equals(parcel.getState())?"selected":""} value="${state}">${state}</option>
+                                </c:forEach>
+                            </select></td>
+                        </tr>
+
                     </tbody>
                     <tfoot style="background: rgba(228, 226, 224, 0.29);">
                     <tr>
-                        <td>
-                            <button type="submit" class="btn btn-primary" style="float: right;">
+                        <td colspan="3">
+                            <button type="submit" class="btn btn-primary" style="float: left;">
                                 Save
                             </button>
                         </td>
-                        <td colspan="6" style="padding-top: 0.2rem; padding-bottom: 0.2rem;">
+                        <td colspan="5" style="padding-top: 0.2rem; padding-bottom: 0.2rem;">
                             <nav aria-label="Page navigation">
                                 <ul class="pagination" style="margin-top: 0.2rem; margin-bottom: 0.2rem; float: right">
                                     <li class="page-item">
@@ -228,6 +268,6 @@
     </div>
 </div>
 </div>
-
+<script src="${pageContext.request.contextPath}/js/admin/parcels.js"></script>
 </body>
 </html>

@@ -100,7 +100,7 @@ public class AddParcelServlet extends BaseHttpServlet {
 
         Parcel parcel = new Parcel(recipientInfo,weight,toCountryId,fromCountryId,express,currency);
         parcel.setDescription(description);
-        parcel.setState("Not delivered");
+        parcel.setState("Waiting for the parcel");
         parcel.setRateId(rate.getId());
         parcel.setToCountry(toCountry);
         parcel.setFromCountry(fromCountry);

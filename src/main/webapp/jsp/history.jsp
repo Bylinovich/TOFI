@@ -92,6 +92,7 @@
         <thead>
         <tr>
             <th>#</th>
+            <th><b>ID</b></th>
             <th>Parcels count</th>
             <%--TODO <th>Total weight</th>--%>
             <th>Total cost, BYN</th>
@@ -105,6 +106,7 @@
             <c:forEach items="${user.getOrders()}" var="order" varStatus="loop">
                 <tr class="accordion-toggle" data-toggle="collapse" data-target="#collapse${loop.index}" style="cursor: pointer">
                     <td>${loop.index + 1}</td>
+                    <td><b>${order.getId()}</b></td>
                     <td>${order.getParcels().size()}</td>
                     <%--<td>TODO TotalWeight kg</td>--%>
                     <td>${order.getTotalCost()} BYN</td>

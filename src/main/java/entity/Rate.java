@@ -44,8 +44,9 @@ public class Rate extends AbstractEntity {
         if (parcel.getExpress()){
             cost *= 1.2;
         }
-        int t = (int) (cost * 100);
-        cost = (float)t/100;
+        cost = cost*100;
+        cost = Math.round(cost);
+        cost = cost / 100;
         return cost;
     }
 

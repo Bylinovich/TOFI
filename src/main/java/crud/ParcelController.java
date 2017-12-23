@@ -61,7 +61,10 @@ public class ParcelController {
         return pageAmount;
     }
 
-    public List<Parcel> getPageOfUsers(int pageNumber, int pageSize){
+    public List<Parcel> getPageOfParcels(int pageNumber, int pageSize, Long orderId){
+        if (orderId != null) {
+            return getOrderParcels(orderId);
+        }
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
         Criteria criteria = session.createCriteria(Parcel.class);
