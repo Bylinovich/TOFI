@@ -60,6 +60,19 @@ public class RateController {
         return list.get(0);
     }
 
+    public Rate getRateById(long id) {
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Rate.class);
+        criteria.add(Restrictions.eq("id", id));
+        ArrayList<Rate> list = (ArrayList<Rate>) criteria.list();
+        session.getTransaction().commit();
+        session.close();
+        if (list.size()<1)
+            return null;
+        return list.get(0);
+    }
+
     public void addRate(Rate rate){
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();

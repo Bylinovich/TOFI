@@ -1,5 +1,6 @@
 package entity;
 
+import crud.OrderController;
 import crud.ParcelController;
 
 import javax.persistence.*;
@@ -82,12 +83,26 @@ public class Order extends AbstractEntity {
         return new ArrayList<Parcel>();
     }
 
+    public void updateCost(){
+        totalCost = 0;
+        conversionTotalCost = 0;
+        List<Parcel> parcels = this.getParcels();
+        for (Parcel parcel: parcels
+             ) {
+            totalCost += parcel.getCost();
+            conversionTotalCost += parcel.getConversionCost();
+        }
+        OrderController orderController = new OrderController();
+        if (parcels.size() == 0) {
+            orderController.deleteOrder(this.getId());
+        } else {
+            orderController.updateOrder(this);
+        }
+    }
+
     public void addParcel(Parcel parcel){
         parcels.add(parcel);
         totalCost+=parcel.getCost();
-        totalCost=totalCost*100;
-        totalCost= Math.round(totalCost);
-        totalCost = totalCost / 100;
         conversionTotalCost+=parcel.getConversionCost();
     }
 

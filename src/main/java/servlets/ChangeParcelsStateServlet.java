@@ -1,6 +1,7 @@
 package servlets;
 
 import crud.CurrencyController;
+import crud.OrderController;
 import crud.ParcelController;
 import entity.*;
 
@@ -13,6 +14,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static java.lang.Byte.valueOf;
 
 @WebServlet("/ChangeParcelsState")
 public class ChangeParcelsStateServlet extends BaseHttpServlet {
@@ -50,12 +53,25 @@ public class ChangeParcelsStateServlet extends BaseHttpServlet {
         String generalState = request.getParameter("state_selected");
         for (Parcel parcel:parcels
              ) {
+            if ("Waiting for the parcel".equals(parcel.getState())) {
+                double weight = Double.parseDouble(request.getParameter("weight".concat(String.valueOf(parcel.getId()))).replace(",", "."));
+                if (parcel.getWeight() != weight) {
+                    parcel.setWeight(weight);
+                }
+            }
             String state = request.getParameter("state".concat(String.valueOf(parcel.getId())));
             parcel.setState(state);
             if (request.getParameter("select_".concat(String.valueOf(parcel.getId()))) != null) {
                 parcel.setState(generalState);
             }
             parcelController.updateParcel(parcel);
+            if ("Canceled".equals(parcel.getState())) {
+                OrderController orderController = new OrderController();
+                Order order = orderController.getOrderById(parcel.getOrderId());
+                ParcelController parcelController1 = new ParcelController();
+                parcelController.deleteParcel(parcel.getId());
+                order.updateCost();
+            }
         }
         response.sendRedirect(request.getContextPath()+"/ShowParcels");
     }

@@ -118,7 +118,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="input-group">
-                            <input type="number" pattern="\d+" class="form-control" placeholder="Order Id" name="OrderId">
+                            <input required type="number" pattern="\d+" class="form-control" placeholder="Order Id" name="OrderId">
                             <span class="input-group-btn">
                                 <button type="submit" class="btn btn-secondary">Go!</button>
                             </span>
@@ -168,7 +168,7 @@
                             <td><c:out value="${parcel.getId()}"/></td>
                             <td>${parcel.getDescription()}</td>
                             <c:if test="${'Waiting for the parcel'.equals(parcel.getState())}">
-                                <td><input min="0.1" max="100" step="0.1" type="number" value="${parcel.getWeight()}"></td>
+                                <td><input name="weight${parcel.getId()}" min="0.1" max="100" step="0.1" type="number" value="${parcel.getWeight()}"></td>
                             </c:if>
                             <c:if test="${!'Waiting for the parcel'.equals(parcel.getState())}">
                                 <td>${parcel.getWeight()}</td>

@@ -30,6 +30,20 @@ public class OrderController {
         session.close();
         return orders;
     }
+
+    public Order getOrderById(long id) {
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Order.class);
+        criteria.add(Restrictions.eq("id", id));
+        List<Order> list = (ArrayList<Order>) criteria.list();
+        session.getTransaction().commit();
+        session.close();
+        if (list.size()<1)
+            return null;
+        return list.get(0);
+    }
+
     public Order addOrder(Order order){
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
@@ -67,7 +81,7 @@ public class OrderController {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
         Criteria criteria = session.createCriteria(Order.class);
-        criteria.add(Restrictions.eq("ID", OrderId));
+        criteria.add(Restrictions.eq("id", OrderId));
         Order order = (Order) criteria.list().get(0);
         try {
             if(null != order) {

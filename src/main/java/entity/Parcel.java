@@ -1,5 +1,10 @@
 package entity;
 
+import crud.CurrencyController;
+import crud.OrderController;
+import crud.ParcelController;
+import crud.RateController;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -96,7 +101,17 @@ public class Parcel extends AbstractEntity{
     }
 
     public void setWeight(double weight) {
+        RateController rateController = new RateController();
+        Rate rate = rateController.getRateById(this.getRateId());
         this.weight = weight;
+        this.setCost(rate.calculateParcelCost(this));
+        CurrencyController currencyController= new CurrencyController();
+        this.setConversionCost(currencyController.conversion(this.getCost(), this.getCurrency()));
+        ParcelController parcelController = new ParcelController();
+        parcelController.updateParcel(this);
+        OrderController orderController = new OrderController();
+        Order order = orderController.getOrderById(this.getOrderId());
+        order.updateCost();
     }
 
     public void setToCountryId(int toCountryId) {
@@ -113,6 +128,9 @@ public class Parcel extends AbstractEntity{
 
     public void setCost(double cost) {
         this.cost = cost;
+        this.cost *= 100;
+        this.cost = Math.round(this.cost);
+        this.cost /= 100;
     }
 
     public long getOrderId() {
@@ -167,7 +185,10 @@ public class Parcel extends AbstractEntity{
         return conversionCost;
     }
 
-    public void setConversionCost(double conversionCost) {
-        this.conversionCost = conversionCost;
+    public void setConversionCost(double cost) {
+        this.conversionCost = cost;
+        this.conversionCost *= 100;
+        this.conversionCost = Math.round(this.conversionCost);
+        this.conversionCost /= 100;
     }
 }
