@@ -31,9 +31,17 @@
 <body>
 
 <jsp:useBean id="user" class="entity.User" scope="session"/>
-<c:if test="${user.getUsername() != null}">
-    <c:redirect url="/jsp/account.jsp"></c:redirect>
-</c:if>
+<c:choose>
+    <c:when test="${user.getUsername() == null}">
+        <%--<jsp:include page="guestNavBar.jsp"/>--%>
+    </c:when>
+    <c:when test="${user.isAdmin()}">
+        <c:redirect url="/"/>
+    </c:when>
+    <c:when test="${user.isSimpleUser()}">
+        <c:redirect url="/"/>
+    </c:when>
+</c:choose>
 
 <div class="container">
     <div class="row">

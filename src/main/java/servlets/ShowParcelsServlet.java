@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Влад on 12.11.2016.
@@ -45,12 +46,31 @@ public class ShowParcelsServlet extends BaseHttpServlet {
         Long orderId = null;
         if (orderIdString != null) {
             orderId = Long.valueOf(orderIdString);
+            request.getSession().setAttribute("OrderId", orderId);
+        } else {
+            Object ordIdObj = request.getSession().getAttribute("OrderId");
+            if (ordIdObj != null) {
+                orderId = (Long) ordIdObj;
+            }
+        }
+
+        if (orderId != null && orderId == 0) {
+            orderId = null;
+        }
+
+        if (orderId != null) {
+            ParcelController parcelController = new ParcelController();
+            List<Parcel> parcels = parcelController.getOrderParcels(orderId);
+            if (parcels == null) {
+                orderId = null;
+            }
         }
 
         ParcelController parcelController = new ParcelController();
         Object obj = request.getParameter("page");
         Integer pageNumber = 1;
-        Integer pageAmount = parcelController.getPageAmount(5);
+        int pageSize = 5;
+        Integer pageAmount = parcelController.getPageAmount(pageSize, orderId);
         if (obj != null && isDigit((String) obj)){
             Integer reqPage = Integer.parseInt((String) obj);
             if (reqPage < 1){
@@ -62,7 +82,7 @@ public class ShowParcelsServlet extends BaseHttpServlet {
             pageNumber = reqPage;
         }
 
-        ArrayList<Parcel> parcels = (ArrayList<Parcel>) parcelController.getPageOfParcels(pageNumber, 5, orderId);
+        ArrayList<Parcel> parcels = (ArrayList<Parcel>) parcelController.getPageOfParcels(pageNumber, pageSize, orderId);
         ArrayList<String> states = new ArrayList<>();
         states.add("Waiting for the parcel");
         states.add("Parcel received");

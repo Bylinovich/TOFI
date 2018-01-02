@@ -51,9 +51,12 @@ public class ParcelController {
         return count;
     }
 
-    public Integer getPageAmount(int pageSize){
+    public Integer getPageAmount(int pageSize, Long orderId){
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Criteria criteriaCount = session.createCriteria(Parcel.class);
+        if (orderId != null) {
+            criteriaCount.add(Restrictions.eq("orderId", orderId));
+        }
         criteriaCount.setProjection(Projections.rowCount());
         Integer count = (int) (long) (Long) criteriaCount.uniqueResult();
         Integer pageAmount =  (count - 1) / pageSize + 1;

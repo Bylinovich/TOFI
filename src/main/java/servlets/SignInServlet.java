@@ -56,7 +56,7 @@ public class SignInServlet extends BaseHttpServlet {
 
         if (user != null) {
             request.getSession().setAttribute("user", user);
-            response.sendRedirect(request.getContextPath()+"/NewOrder");
+            response.sendRedirect(request.getContextPath());
             return;
         } else {
             request.getSession().setAttribute("SignInError", "Wrong username or password");

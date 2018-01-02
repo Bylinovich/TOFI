@@ -46,9 +46,16 @@
          style="background-image: url(${pageContext.request.contextPath}/images/photo-1454165804606-c3d57bc86b40-2000x1334-34.jpg);">
 
     <jsp:useBean id="user" class="entity.User" scope="session"/>
-    <c:if test="${user.getUsername() != null}">
-        <c:redirect url="/jsp/account.jsp"></c:redirect>
-    </c:if>
+    <c:choose>
+        <c:when test="${user.getUsername() == null}">
+        </c:when>
+        <c:when test="${user.isSimpleUser()}">
+            <c:redirect url="/NewOrder"/>
+        </c:when>
+        <c:when test="${user.isAdmin()}">
+            <c:redirect url="/ShowParcels"/>
+        </c:when>
+    </c:choose>
 
     <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(0, 0, 0);"></div>
 

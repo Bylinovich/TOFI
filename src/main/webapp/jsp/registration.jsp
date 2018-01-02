@@ -31,10 +31,17 @@
 <body>
 
 <jsp:useBean id="user" class="entity.User" scope="session"/>
-<c:if test="${user.getUsername() != null}">
-    <c:redirect url="/jsp/account.jsp"></c:redirect>
-</c:if>
-
+<c:choose>
+    <c:when test="${user.getUsername() == null}">
+        <%--<jsp:include page="guestNavBar.jsp"/>--%>
+    </c:when>
+    <c:when test="${user.isAdmin()}">
+        <c:redirect url="/"/>
+    </c:when>
+    <c:when test="${user.isSimpleUser()}">
+        <c:redirect url="/"/>
+    </c:when>
+</c:choose>
 <div class="container">
     <div class="row">
 
@@ -66,7 +73,7 @@
                                placeholder="Username" title="First character only letter. Other - letters or digits. From 3 to 30 characters."
                                oninvalid="setCustomValidity('Wrong username.' +
                                 ' First character only letter. Other - letters or digits. From 3 to 30 characters.')"
-                               onchange="try{setCustomValidity('')}catch(e){}">
+                               oninput="try{setCustomValidity('')}catch(e){}">
                     </div>
 
 
@@ -74,9 +81,10 @@
                         <label for="email">Email</label>
                         <input type="email" class="form-control" name="email" id="email"
                                pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" required placeholder="Email"  maxlength="50"
-                               title="Enter your email, please. Format: example@example.com."
-                               oninvalid="setCustomValidity('Wrong email form. Try one more time, please.')"
-                               onchange="try{setCustomValidity('')}catch(e){}">
+                               title="example@example.com"
+                               oninvalid="setCustomValidity('Wrong email form. Try one more time, please.');"
+                               oninput="try{setCustomValidity('');}catch(e){}"
+                        >
                     </div>
 
                     <div class="form-group col-md-6">
@@ -86,7 +94,7 @@
                                title="Minimum eight characters, at least one letter and one number"
                                oninvalid="setCustomValidity('Wrong password.' +
                                 'Minimum eight characters, at least one letter and one number.')"
-                               onchange="try{setCustomValidity('')}catch(e){}">
+                               oninput="try{setCustomValidity('')}catch(e){}">
                     </div>
 
                     <div class="form-group col-md-6">
@@ -96,7 +104,7 @@
                                title="Enter your password one more time, please."
                                oninvalid="setCustomValidity('Wrong password.' +
                                 ' First character only letter. Other - letters or digits. From 3 to 20 characters.')"
-                               onchange="try{setCustomValidity('')}catch(e){}">
+                               oninput="try{setCustomValidity('')}catch(e){}">
                     </div>
 
 
@@ -112,7 +120,7 @@
                                title="Enter your first name. Only letters. The first letter should be capitalized. From 3 to 30 characters."
                                oninvalid="setCustomValidity('Wrong first name.' +
                                 ' Only letters. The first letter should be capitalized. From 3 to 30 characters.')"
-                               onchange="try{setCustomValidity('')}catch(e){}">
+                               oninput="try{setCustomValidity('')}catch(e){}">
                     </div>
 
                     <div class="form-group col-md-6">
@@ -122,7 +130,7 @@
                                title="Enter your last name. Only letters. The first letter should be capitalized. From 3 to 30 characters."
                                oninvalid="setCustomValidity('Wrong last name.' +
                                 ' Only letters. The first letter should be capitalized. From 3 to 30 characters.')"
-                               onchange="try{setCustomValidity('')}catch(e){}">
+                               oninput="try{setCustomValidity('')}catch(e){}">
                     </div>
 
                     <div class="form-group col-md-6">
@@ -132,7 +140,7 @@
                                title="Enter your phone number. Only digits. No spaces. From 7 to 13 digits."
                                oninvalid="setCustomValidity('Wrong phone number format.' +
                                 ' Only digits. No spaces. From 7 to 13 digits.')"
-                               onchange="try{setCustomValidity('')}catch(e){}"
+                               oninput="try{setCustomValidity('')}catch(e){}"
                                placeholder="Phone number">
                     </div>
 
@@ -143,7 +151,7 @@
                                title="Enter your address. From 3 to 100 characters. Only letters, digits, dots, commas and next symbols: - \\ _. "
                                oninvalid="setCustomValidity('Wrong address format.' +
                                 ' Only letters, digits, dots, commas and next symbols: - \\ _.  From 3 to 100 characters.')"
-                               onchange="try{setCustomValidity('')}catch(e){}">
+                               oninput="try{setCustomValidity('')}catch(e){}">
                     </div>
 
 
