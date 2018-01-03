@@ -29,19 +29,19 @@
                         <li class="nav-item"><a class="nav-link link" href="${pageContext.request.contextPath}/ShowUsers">USERS</a>
                         </li>
                         <li class="nav-item"><a class="nav-link link" href="${pageContext.request.contextPath}/ShowParcels?OrderId=0">PARCELS</a></li>
-                        <%--<li class="nav-item"><a class="nav-link link" href="${pageContext.request.contextPath}/jsp/about.jsp">ABOUT US</a>--%>
-                        <%--</li>--%>
+                        <li class="nav-item"><a class="nav-link link" href="${pageContext.request.contextPath}/jsp/about.jsp">ABOUT US</a>
+                        </li>
 
-                        <%--<li class="nav-item dropdown">--%>
-                        <%--<a class="dropdown-toggle nav-link link" style="background: transparent;"--%>
-                        <%--data-toggle="dropdown" href="#">REPORTS--%>
-                        <%--<span class="caret"></span></a>--%>
-                        <%--<ul class="dropdown-menu" style="min-width: 100%;background: #282828;padding: 10px 10px 10px 20px;border-radius: 5px;">--%>
-                        <%--<li class="nav-link link" style="margin: 0.5rem;"><a href="${pageContext.request.contextPath}/TopUsers">TOP 20 USERS</a></li>--%>
-                        <%--<li class="nav-link link" style="margin: 0.5rem;"><a href="${pageContext.request.contextPath}/jsp/ordersOnDateReport.jsp">ORDERS ON DATE</a></li>--%>
-                        <%--<li class="nav-link link" style="margin: 0.5rem;"><a href="${pageContext.request.contextPath}/YearReport">YEAR REPORT</a></li>--%>
-                        <%--</ul>--%>
-                        <%--</li>--%>
+                        <li class="nav-item dropdown">
+                        <a class="dropdown-toggle nav-link link" style="background: transparent;"
+                        data-toggle="dropdown" href="#">REPORTS
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu" style="min-width: 100%;background: #282828;padding: 10px 10px 10px 20px;border-radius: 5px;">
+                        <li class="nav-link link" style="margin: 0.5rem;"><a href="${pageContext.request.contextPath}/TopUsers">TOP 20 USERS</a></li>
+                        <li class="nav-link link" style="margin: 0.5rem;"><a href="${pageContext.request.contextPath}/jsp/ordersOnDateReport.jsp">ORDERS ON DATE</a></li>
+                        <li class="nav-link link" style="margin: 0.5rem;"><a href="${pageContext.request.contextPath}/YearReport">YEAR REPORT</a></li>
+                        </ul>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="dropdown-toggle nav-link link" style="background: transparent;"
                                data-toggle="dropdown" href="#">STATISTICS

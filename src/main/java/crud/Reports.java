@@ -3,9 +3,9 @@ package crud;
 import java.sql.*;
 
 public class Reports {
-    private final String url = "jdbc:mysql://minuon.mooo.com:3306/nc_2";
-    private final String username = "ncuser";
-    private final String password = "12345nc";
+    private static String url = "jdbc:mysql://127.0.0.1:3306/nc_2";
+    private static String username = "root";
+    private static String password = "root";
 
     public int countOrdersOnDate(int year, int month, int day)
     {

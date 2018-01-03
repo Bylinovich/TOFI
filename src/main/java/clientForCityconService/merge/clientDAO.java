@@ -7,9 +7,9 @@ import java.util.ArrayList;
  * Created by Vlad on 11.12.2016.
  */
 public class clientDAO {
-    private static String url = "jdbc:mysql://minuon.mooo.com:3306/nc_2";
-    private static String username = "ncuser";
-    private static String password = "12345nc";
+    private static String url = "jdbc:mysql://127.0.0.1:3306/nc_2";
+    private static String username = "root";
+    private static String password = "root";
 
     public void addInUsers(String log,String pass,String email){
         try {

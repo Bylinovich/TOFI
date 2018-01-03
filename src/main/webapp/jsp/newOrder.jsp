@@ -28,9 +28,6 @@
           type="text/css">
 
     <script src="${pageContext.request.contextPath}/js/web/assets/jquery/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/bootstrap/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/custom/custom.js"></script>
-    <script src="${pageContext.request.contextPath}/js/dropdown/script.min.js"></script>
 
     <style>
         .modal-dialog {
@@ -80,7 +77,7 @@
                            title="Enter your description. First character only letter. Other - letters or digits. From 3 to 30 characters."
                            oninvalid="setCustomValidity('Wrong description.' +
                                 ' First character only letter. Other - letters or digits. From 3 to 30 characters.')"
-                           onchange="try{setCustomValidity('')}catch(e){}">
+                           oninput="try{setCustomValidity('')}catch(e){}">
 
                     <label for="weight">Weight:</label>
                     <input maxlength="3" type="number" class="form-control" name="weight" id="weight" min="0.1" max="100" step="0.1"
@@ -88,7 +85,7 @@
                            title="Only digits. Min weight - 0.1 kg, max weight - 100 kg."
                            oninvalid="setCustomValidity('Wrong weight.' +
                                 ' Only digits. Min weight - 0.1 kg, max weight - 100 kg.')"
-                           onchange="try{setCustomValidity('')}catch(e){}">
+                           oninput="try{setCustomValidity('')}catch(e){}">
 
                     <label for="from">I will send it from...</label>
                     <select name="fromCountry" id="from" required class="form-control">
@@ -110,15 +107,16 @@
                            oninvalid="setCustomValidity('Wrong name format.' +
                                 ' The first letter should be capitalized. Only letters, spaces and dots. From 3 to 30 characters.' +
                                 ' For example: Donald Trump, Trump D., Trump.')"
-                           onchange="try{setCustomValidity('')}catch(e){}">
+                           oninput="try{setCustomValidity('')}catch(e){}">
 
-                <div class="form-group" style="margin-top: 15px">
+                <label for="currency">Choose currency:</label>
+                <div class="form-group">
                     <div class="checkbox">
                         <label style="margin-top: 15px; padding-left: 30px;">
                             <input type="checkbox" name="express" id="express" style="transform: scale(2.0)"/> Express
                         </label>
                         <div class="col-md-4 mbr-section-btn" style="padding-left: 0px">
-                        <select name="currency" id="currency" required class="form-control">
+                            <select name="currency" id="currency" required class="form-control">
                             <c:forEach items="${currencies}" var="currency">
                                 <option value="${currency.getCurrencyAbbreviation()}">${currency.getCurrencyAbbreviation()}</option>
                             </c:forEach>
@@ -191,7 +189,7 @@
                         <td><c:out value="${parcel.getRecipientInfo()}"/></td>
                         <td>${parcel.isExpress()}</td>
                         <td>${parcel.getConversionCost()}</td>
-                        <td><a href="${pageContext.request.contextPath}/DeleteParcel?id=${loop.index}">delete</a></td>
+                        <td><a data-toggle="confirmation" data-title="Delete parcel?" href="${pageContext.request.contextPath}/DeleteParcel?id=${loop.index}">delete</a></td>
                     </tr>
                 </c:forEach>
                 <tr>
@@ -278,6 +276,20 @@
     </div>
 </div>
 
+<script src="${pageContext.request.contextPath}/js/web/assets/jquery/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js"></script>
+<%--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>--%>
+<script src="${pageContext.request.contextPath}/js/bootstrap/js/bootstrap-confirmation.js"></script>
+<script src="${pageContext.request.contextPath}/js/custom/custom.js"></script>
+<script src="${pageContext.request.contextPath}/js/dropdown/script.min.js"></script>
+<script>
+    console.log('Bootstrap ' + $.fn.tooltip.Constructor.VERSION);
+    console.log('Bootstrap Confirmation ' + $.fn.confirmation.Constructor.VERSION);
+    $('[data-toggle=confirmation]').confirmation({
+        rootSelector: '[data-toggle=confirmation]',
+        container: 'body'
+    });
+</script>
 </body>
 
 </html>

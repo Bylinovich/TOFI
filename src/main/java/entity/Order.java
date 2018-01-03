@@ -103,7 +103,13 @@ public class Order extends AbstractEntity {
     public void addParcel(Parcel parcel){
         parcels.add(parcel);
         totalCost+=parcel.getCost();
+        this.totalCost *= 100;
+        this.totalCost = Math.round(this.totalCost);
+        this.totalCost /= 100;
         conversionTotalCost+=parcel.getConversionCost();
+        this.conversionTotalCost *= 100;
+        this.conversionTotalCost = Math.round(this.conversionTotalCost);
+        this.conversionTotalCost /= 100;
     }
 
     public void deleteParcel(long parcelId){
@@ -115,7 +121,13 @@ public class Order extends AbstractEntity {
 //            }
 //        }
         this.totalCost -= parcels.get((int) parcelId).getCost();
-        conversionTotalCost-=parcels.get((int) parcelId).getConversionCost();
+        this.conversionTotalCost-=parcels.get((int) parcelId).getConversionCost();
+        this.totalCost *= 100;
+        this.totalCost = Math.round(this.totalCost);
+        this.totalCost /= 100;
+        this.conversionTotalCost *= 100;
+        this.conversionTotalCost = Math.round(this.conversionTotalCost);
+        this.conversionTotalCost /= 100;
         parcels.remove((int)parcelId);
     }
 

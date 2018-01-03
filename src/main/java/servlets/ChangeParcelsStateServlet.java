@@ -63,15 +63,16 @@ public class ChangeParcelsStateServlet extends BaseHttpServlet {
             parcel.setState(state);
             if (request.getParameter("select_".concat(String.valueOf(parcel.getId()))) != null) {
                 parcel.setState(generalState);
-                if ("Canceled".equals(parcel.getState())) {
-                    OrderController orderController = new OrderController();
-                    Order order = orderController.getOrderById(parcel.getOrderId());
-                    ParcelController parcelController1 = new ParcelController();
-                    parcelController.deleteParcel(parcel.getId());
-                    order.updateCost();
-                }
+                System.out.println("!!! " + parcel.getState());
             }
-            parcelController.updateParcel(parcel);
+            if ("Canceled".equals(parcel.getState())) {
+                OrderController orderController = new OrderController();
+                Order order = orderController.getOrderById(parcel.getOrderId());
+                parcelController.deleteParcel(parcel.getId());
+                order.updateCost();
+            } else {
+                parcelController.updateParcel(parcel);
+            }
         }
         response.sendRedirect(request.getContextPath()+"/ShowParcels");
     }
