@@ -1,6 +1,8 @@
 package servlets;
 
+import crud.OrderController;
 import crud.ParcelController;
+import entity.Order;
 import entity.Parcel;
 import entity.User;
 
@@ -42,6 +44,8 @@ public class ShowParcelsServlet extends BaseHttpServlet {
             return;
         }
 
+        request.getSession().setAttribute("order", null);
+        OrderController orderController = new OrderController();
         String orderIdString = request.getParameter("OrderId");
         Long orderId = null;
         if (orderIdString != null) {
@@ -59,6 +63,8 @@ public class ShowParcelsServlet extends BaseHttpServlet {
         }
 
         if (orderId != null) {
+            Order order = orderController.getOrderById(orderId);
+            request.getSession().setAttribute("order", order);
             ParcelController parcelController = new ParcelController();
             List<Parcel> parcels = parcelController.getOrderParcels(orderId);
             if (parcels == null) {

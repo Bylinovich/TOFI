@@ -84,6 +84,9 @@
                             Weight:
                         </th>
                         <th>
+                            Cost(BYN):
+                        </th>
+                        <th>
                             Cost:
                         </th>
                         <th>
@@ -114,6 +117,7 @@
                                 <td>${parcel.getWeight()}</td>
                             </c:if>
                             <td>${parcel.getCost()}</td>
+                            <td>${parcel.getConversionCost()} ${parcel.getCurrency()}</td>
                             <td>${parcel.getFromCountry()}</td>
                             <td>${parcel.getToCountry()}</td>
                             <td><select name="state${parcel.getId()}" required class="form-control">
@@ -128,7 +132,14 @@
                             <td>
                                 <input type="checkbox" name="select_all" id="select-all" class="select-parcel">
                             </td>
-                            <td colspan="6"></td>
+                            <td colspan="5">
+                                <c:if test="${order != null}">
+                                    <p>
+                                        Total cost: ${order.getTotalCost()} BYN (${order.getConversionTotalCost()} ${order.getCurrency()})
+                                    </p>
+                                </c:if>
+                            </td>
+                            <td colspan="2"><p class="hidden" id="select-status-label">Select state for parcels: </p></td>
                             <td><select
                                     name="state_selected"
                                     id="select-status-for-all-parcels"
@@ -149,7 +160,7 @@
                                 Save
                             </button>
                         </td>
-                        <td colspan="5" style="padding-top: 0.2rem; padding-bottom: 0.2rem;">
+                        <td colspan="6" style="padding-top: 0.2rem; padding-bottom: 0.2rem;">
                             <nav aria-label="Page navigation">
                                 <ul class="pagination" style="margin-top: 0.2rem; margin-bottom: 0.2rem; float: right">
                                     <li class="page-item">

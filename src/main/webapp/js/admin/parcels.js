@@ -15,8 +15,10 @@ $(document).ready(function() {
     $(".select-parcel").change(function() {
         if ($.find('.select-parcel:checked').length) {
             $('#select-status-for-all-parcels').removeClass('hidden');
+            $('#select-status-label').removeClass('hidden');
         } else {
             $('#select-status-for-all-parcels').addClass('hidden');
+            $('#select-status-label').addClass('hidden');
         }
     })
 });

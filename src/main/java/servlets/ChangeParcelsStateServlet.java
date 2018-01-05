@@ -63,7 +63,6 @@ public class ChangeParcelsStateServlet extends BaseHttpServlet {
             parcel.setState(state);
             if (request.getParameter("select_".concat(String.valueOf(parcel.getId()))) != null) {
                 parcel.setState(generalState);
-                System.out.println("!!! " + parcel.getState());
             }
             if ("Canceled".equals(parcel.getState())) {
                 OrderController orderController = new OrderController();

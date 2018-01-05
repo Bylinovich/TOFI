@@ -92,6 +92,12 @@ public class Order extends AbstractEntity {
             totalCost += parcel.getCost();
             conversionTotalCost += parcel.getConversionCost();
         }
+        this.totalCost *= 100;
+        this.totalCost = Math.round(this.totalCost);
+        this.totalCost /= 100;
+        this.conversionTotalCost *= 100;
+        this.conversionTotalCost = Math.round(this.conversionTotalCost);
+        this.conversionTotalCost /= 100;
         OrderController orderController = new OrderController();
         if (parcels.size() == 0) {
             orderController.deleteOrder(this.getId());

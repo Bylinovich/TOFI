@@ -29,7 +29,7 @@
                         <li class="nav-item"><a class="nav-link link" href="${pageContext.request.contextPath}/ShowUsers">USERS</a>
                         </li>
                         <li class="nav-item"><a class="nav-link link" href="${pageContext.request.contextPath}/ShowParcels?OrderId=0">PARCELS</a></li>
-                        <li class="nav-item"><a class="nav-link link" href="${pageContext.request.contextPath}/jsp/about.jsp">ABOUT US</a>
+                        <%--<li class="nav-item"><a class="nav-link link" href="${pageContext.request.contextPath}/jsp/about.jsp">ABOUT US</a>--%>
                         </li>
 
                         <li class="nav-item dropdown">
